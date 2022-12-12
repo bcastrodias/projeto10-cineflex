@@ -10,10 +10,28 @@ const Seats = (props) => {
   const [username, setUsername] = useState("");
   const [CPF, setCPF] = useState("");
 
-  const onChangeName = () => {};
-  const onChangeCPF = () => {};
+  const onChangeName = (e) => {
+    setUsername(e.target.value);
+  };
+  const onChangeCPF = (e) => {
+    setCPF(e.target.value);
+  };
 
-  // id, name, isAvailable
+  const isButtonDisabled = !username || !CPF || selectedSeats.length === 0;
+
+  const onPressButton = () => {
+    Axios.post(
+      "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
+      {
+        ids: selectedSeats,
+        name: username,
+        cpf: CPF,
+      }
+    ).then((result) => {
+      console.log(result);
+      // setIsSuccessful(true)
+    });
+  };
 
   useEffect(() => {
     if (props.session) {
@@ -51,11 +69,13 @@ const Seats = (props) => {
           </Seat>
         );
       })}
-      Nome do comprador:
-      <Usuario value={username} onChange={onChangeName}></Usuario>
-      CPF do comprador:
-      <Usuario value={CPF} onChange={onChangeCPF}></Usuario>
-      <button>Reservar assento(s)</button>
+      <label for="name">Nome do comprador:</label>
+      <Usuario id="name" value={username} onChange={onChangeName}></Usuario>
+      <label for="cpf">CPF do comprador:</label>
+      <Usuario id="cpf" value={CPF} onChange={onChangeCPF}></Usuario>
+      <button onClick={onPressButton} disabled={isButtonDisabled}>
+        Reservar assento(s)
+      </button>
     </Container>
   );
 };
@@ -64,14 +84,16 @@ const Container = styled.div`
   width: 375px;
   height: 100px;
   display: grid;
-  grid-template-columns: 26px 26px 26px;
-  grid-template-rows: 26px 26px 26px;
+  grid-template-columns: repeat(10, 26px);
+  grid-template-rows: repeat(5, 26px);
   column-gap: 10px;
-  row-gap: 15px;
+  row-gap: 10px;
 `;
 
 const Seat = styled.div`
   box-sizing: border-box;
+  text-align: center;
+  justify-content: center;
   width: 26px;
   height: 26px;
   border: 1px solid #808f9d;
@@ -84,6 +106,6 @@ export default Seats;
 
 const Usuario = styled.input`
   height: 51px;
-  width: 327px;
+  width: 150px;
   border-radius: 3px;
 `;
