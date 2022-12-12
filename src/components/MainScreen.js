@@ -1,23 +1,23 @@
-import Top from "./Top";
 import Movies from "./Movies";
 import { useState } from "react";
 import Times from "./Times";
+import Seats from "./Seats";
 
 const MainScreen = () => {
   const [selectedMovie, setSelectedMovie] = useState();
   const [selectedSession, setSelectedSession] = useState();
 
-  console.log(selectedMovie);
+  if (selectedSession) {
+    return <Seats session={selectedSession} />;
+  }
 
-  return (
-    <>
-      {selectedMovie ? (
-        <Times id={selectedMovie.id} setSelectedSession={setSelectedSession} />
-      ) : (
-        <Movies setSelectedMovie={setSelectedMovie} />
-      )}
-    </>
-  );
+  if (selectedMovie) {
+    return (
+      <Times id={selectedMovie.id} setSelectedSession={setSelectedSession} />
+    );
+  }
+
+  return <Movies setSelectedMovie={setSelectedMovie} />;
 };
 
 export default MainScreen;

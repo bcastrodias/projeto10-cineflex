@@ -1,5 +1,6 @@
 import Axios from "axios";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 
 const Times = (props) => {
   const APItimes = `https://mock-api.driven.com.br/api/v8/cineflex/movies/${props.id}/showtimes`;
@@ -22,9 +23,11 @@ const Times = (props) => {
             </div>
             {day.showtimes.map((showtime) => {
               const onPressSession = () => {
-                setSelectedSession(showtime.id);
+                props.setSelectedSession(showtime.id);
               };
-              return <button onClick={onPressSession}>{showtime.name}</button>;
+              return (
+                <Horario onClick={onPressSession}>{showtime.name}</Horario>
+              );
             })}
           </>
         );
@@ -34,3 +37,12 @@ const Times = (props) => {
 };
 
 export default Times;
+
+const Horario = styled.button`
+  height: 43px;
+  width: 83px;
+  left: 23px;
+  top: 227px;
+  border-radius: 3px;
+  background-color: orange;
+`;
