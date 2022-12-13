@@ -23,7 +23,7 @@ const Times = (props) => {
             </div>
             {day.showtimes.map((showtime) => {
               const onPressSession = () => {
-                props.setSelectedSession(showtime.id);
+                props.setSelectedSession(showtime);
               };
               return (
                 <Horario onClick={onPressSession}>{showtime.name}</Horario>

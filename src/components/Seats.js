@@ -5,10 +5,17 @@ import Axios from "axios";
 const Seats = (props) => {
   const APISEATS = `https://mock-api.driven.com.br/api/v8/cineflex/showtimes/${props.session}/seats`;
 
+  const RESERVE_SEATS_URL =
+    "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many";
+
   const [seats, setSeats] = useState();
   const [selectedSeats, setSelectedSeats] = useState([]);
   const [username, setUsername] = useState("");
   const [CPF, setCPF] = useState("");
+
+  const selectedSeatsNames = selectedSeats.map((x) => {
+    return seats?.find((seat) => seat.id === x).name;
+  });
 
   const onChangeName = (e) => {
     setUsername(e.target.value);
@@ -20,16 +27,17 @@ const Seats = (props) => {
   const isButtonDisabled = !username || !CPF || selectedSeats.length === 0;
 
   const onPressButton = () => {
-    Axios.post(
-      "https://mock-api.driven.com.br/api/v8/cineflex/seats/book-many",
-      {
-        ids: selectedSeats,
+    Axios.post(RESERVE_SEATS_URL, {
+      ids: selectedSeats, // [x, y]
+      name: username, // juninho
+      cpf: CPF, // 91341238
+    }).then(() => {
+      props.setIsSuccess(true);
+      props.setSuccessInfo({
         name: username,
         cpf: CPF,
-      }
-    ).then((result) => {
-      console.log(result);
-      // setIsSuccessful(true)
+        seats: selectedSeatsNames,
+      });
     });
   };
 
