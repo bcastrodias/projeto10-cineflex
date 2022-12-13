@@ -27,6 +27,10 @@ const Poster = styled.img`
   width: 48px;
   height: 72px;
   border: 2px solid white;
+  padding: 15px 16px 50px 16px;
 `;
 
-const InfoContainer = styled.div``;
+const InfoContainer = styled.div`
+  padding-top: 13px;
+  padding-right: 70px;
+`;

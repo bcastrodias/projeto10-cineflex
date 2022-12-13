@@ -54,30 +54,34 @@ const Seats = (props) => {
   }, [props.session]);
 
   return (
-    <Container>
-      {seats?.map((seat) => {
-        const isSelected = selectedSeats.includes(seat.id);
-        const onSelect = () => {
-          if (!seat.isAvailable) {
-            return;
-          }
-          if (isSelected) {
-            setSelectedSeats(selectedSeats.filter((item) => item !== seat.id));
-          } else {
-            setSelectedSeats([...selectedSeats, seat.id]);
-          }
-        };
-        return (
-          <Seat
-            data-test="seat"
-            onClick={onSelect}
-            isAvailable={seat.isAvailable}
-            isSelected={isSelected}
-          >
-            {seat.name}
-          </Seat>
-        );
-      })}
+    <>
+      <Container>
+        {seats?.map((seat) => {
+          const isSelected = selectedSeats.includes(seat.id);
+          const onSelect = () => {
+            if (!seat.isAvailable) {
+              return;
+            }
+            if (isSelected) {
+              setSelectedSeats(
+                selectedSeats.filter((item) => item !== seat.id)
+              );
+            } else {
+              setSelectedSeats([...selectedSeats, seat.id]);
+            }
+          };
+          return (
+            <Seat
+              data-test="seat"
+              onClick={onSelect}
+              isAvailable={seat.isAvailable}
+              isSelected={isSelected}
+            >
+              {seat.name}
+            </Seat>
+          );
+        })}
+      </Container>
       <label for="name">Nome do comprador:</label>
       <Usuario
         data-test="client-name"
@@ -95,24 +99,26 @@ const Seats = (props) => {
       <button onClick={onPressButton} disabled={isButtonDisabled}>
         Reservar assento(s)
       </button>
-    </Container>
+    </>
   );
 };
 
 const Container = styled.div`
   width: 375px;
-  height: 100px;
   display: grid;
   grid-template-columns: repeat(10, 26px);
   grid-template-rows: repeat(5, 26px);
   column-gap: 10px;
   row-gap: 10px;
+  padding-left: 10px;
+  padding-top: 10px;
 `;
 
 const Seat = styled.div`
   box-sizing: border-box;
   text-align: center;
   justify-content: center;
+  padding: 3px 0 2px 0;
   width: 26px;
   height: 26px;
   border: 1px solid #808f9d;
