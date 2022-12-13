@@ -3,12 +3,14 @@ import { useState } from "react";
 import Times from "./Times";
 import Seats from "./Seats";
 import Success from "./Success";
+import Bottom from "./Bottom";
 
 const MainScreen = () => {
   const [selectedMovie, setSelectedMovie] = useState();
   const [selectedSession, setSelectedSession] = useState();
   const [isSuccess, setIsSuccess] = useState(false);
   const [successInfo, setSuccessInfo] = useState();
+  const [sessionName, setSessionName] = useState();
 
   const goHome = () => {
     setSelectedMovie(undefined);
@@ -30,17 +32,27 @@ const MainScreen = () => {
 
   if (selectedSession) {
     return (
-      <Seats
-        session={selectedSession.id}
-        setIsSuccess={setIsSuccess}
-        setSuccessInfo={setSuccessInfo}
-      />
+      <>
+        <Seats
+          session={selectedSession.id}
+          setIsSuccess={setIsSuccess}
+          setSuccessInfo={setSuccessInfo}
+        />
+        <Bottom movie={selectedMovie} session={sessionName} />
+      </>
     );
   }
 
   if (selectedMovie) {
     return (
-      <Times id={selectedMovie.id} setSelectedSession={setSelectedSession} />
+      <>
+        <Times
+          setSessionName={setSessionName}
+          id={selectedMovie.id}
+          setSelectedSession={setSelectedSession}
+        />
+        <Bottom movie={selectedMovie} />
+      </>
     );
   }
 
