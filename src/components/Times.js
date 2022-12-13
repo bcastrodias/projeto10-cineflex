@@ -24,9 +24,12 @@ const Times = (props) => {
             {day.showtimes.map((showtime) => {
               const onPressSession = () => {
                 props.setSelectedSession(showtime);
+                props.setSessionName(`${day.weekday} - ${showtime.name}`);
               };
               return (
-                <Horario onClick={onPressSession}>{showtime.name}</Horario>
+                <Horario data-test="movie-day" onClick={onPressSession}>
+                  {showtime.name}
+                </Horario>
               );
             })}
           </>

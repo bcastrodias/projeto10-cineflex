@@ -4,14 +4,21 @@ const Success = (props) => {
   return (
     <>
       <div>Sua reserva foi efetuada!</div>
-      <div>{props.movie.title}</div>
-      <div>{props.session}</div>
-      <div>{props.success.name}</div>
-      <div>{props.success.cpf}</div>
+      <div data-test="movie-info">
+        <div>{props.movie.title}</div>
+        <div>{props.session}</div>
+      </div>
+      <div data-test="client-info">
+        <div>{props.success.name}</div>
+        <div>{props.success.cpf}</div>
+      </div>
       {props.success.seats.map((seat) => (
-        <div>Assento {seat}</div>
+        <div data-test="seats-info">Assento {seat}</div>
       ))}
-      <Button onClick={props.home}> Voltar pra home </Button>
+      <Button data-test="book-seat-btn" onClick={props.home}>
+        {" "}
+        Voltar pra home{" "}
+      </Button>
     </>
   );
 };

@@ -3,7 +3,13 @@ import styled from "styled-components";
 const Movie = (props) => {
   const onClickPoster = () => props.setSelectedMovie(props.movie);
 
-  return <Poster onClick={onClickPoster} src={props.movie.posterURL}></Poster>;
+  return (
+    <Poster
+      data-test="movie"
+      onClick={onClickPoster}
+      src={props.movie.posterURL}
+    ></Poster>
+  );
 };
 
 export default Movie;

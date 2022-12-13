@@ -69,6 +69,7 @@ const Seats = (props) => {
         };
         return (
           <Seat
+            data-test="seat"
             onClick={onSelect}
             isAvailable={seat.isAvailable}
             isSelected={isSelected}
@@ -78,9 +79,19 @@ const Seats = (props) => {
         );
       })}
       <label for="name">Nome do comprador:</label>
-      <Usuario id="name" value={username} onChange={onChangeName}></Usuario>
+      <Usuario
+        data-test="client-name"
+        id="name"
+        value={username}
+        onChange={onChangeName}
+      ></Usuario>
       <label for="cpf">CPF do comprador:</label>
-      <Usuario id="cpf" value={CPF} onChange={onChangeCPF}></Usuario>
+      <Usuario
+        data-test="client-cpf"
+        id="cpf"
+        value={CPF}
+        onChange={onChangeCPF}
+      ></Usuario>
       <button onClick={onPressButton} disabled={isButtonDisabled}>
         Reservar assento(s)
       </button>
